@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { loginUser, logoutUser, registerNewUser } from './authOperations';
+import { loginUser, logoutUser, registerNewUser, refreshUser } from './authOperations';
 
 const initialState = {
   isLoggedIn: false,
@@ -8,6 +8,9 @@ const initialState = {
   userName: '',
   userEmail: '',
   token: null,
+  isRefreshing: false,
+  user: { username: null, email: null },
+
 };
 
 const authSlice = createSlice({
@@ -33,6 +36,18 @@ const authSlice = createSlice({
         state.userEmail = action.payload.user.email;
         state.token = action.payload.accessToken;
       })
+
+      .addCase(refreshUser.pending, state => {
+        state.isRefreshing = true;
+      })
+      .addCase(refreshUser.fulfilled, (state, action) => {
+        state.isLoggedIn = true;
+        state.isRefreshing = false;
+      })
+      .addCase(refreshUser.rejected, state => {
+        state.isRefreshing = false;
+      })
+
       .addCase(loginUser.rejected, rejectHandler)
       // ----- Logout -----
       .addCase(logoutUser.pending, pendingHandler)
@@ -44,16 +59,16 @@ const authSlice = createSlice({
         state.token = null;
       })
       .addCase(logoutUser.rejected, rejectHandler);
-    }
+  }
 });
 
 function pendingHandler(state) {
-    state.error = null;
-    state.isLoading = true;
-  }
-  function rejectHandler(state, action) {
-    state.isLoading = false;
-    state.error = action.payload;
-  }
+  state.error = null;
+  state.isLoading = true;
+}
+function rejectHandler(state, action) {
+  state.isLoading = false;
+  state.error = action.payload;
+}
 
-export const authReducer = authSlice.reducer;
+export const authReducer = (authSlice.reducer);
