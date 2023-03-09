@@ -6,7 +6,7 @@ export function LoggedInNavigation() {
     <>
       <li className={s.navigation__item}>
         <NavLink
-          to="/dairy"
+          to="/diary"
           className={({ isActive }) => (isActive ? s.active : s.default)}
         >
           Щоденник

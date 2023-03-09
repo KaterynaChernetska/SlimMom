@@ -4,8 +4,6 @@ import { Summary } from './Summary';
 import { Diet } from './Diet';
 
 export const SideBar = () => {
-
-
     return (
         <div className={s.Back}>
             <div className={s.SidebarSection}>

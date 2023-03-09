@@ -15,6 +15,7 @@ import { Layout } from './Layout/Layout';
 import { DairyPage } from 'pages/DairyPage/DairyPage';
 import { DiaryAddProductForm } from './DiaryAddProductForm/DiaryAddProductForm';
 import { CalculatorPage } from 'pages/CalculatorPage/CalculatorPage';
+import { SidePage } from 'pages/SidePage/SidePage';
 
 // const DairyPage = lazy(() => import('pages/DairyPage/DairyPage'));
 
@@ -39,21 +40,22 @@ export const App = () => {
               component={<Suspense fallback={<div>Loading</div>}>
                 <RegistrationPage /></Suspense>} />}
             />
-            <Route path="/diary" element={
-              <Suspense fallback={<div>Loading</div>}>
-                <DairyPage></DairyPage>
-              </Suspense>} />
-
-            <Route path="/calculator" element={
-              <Suspense fallback={<div>Loading</div>}>
-                <CalculatorPage></CalculatorPage>
-              </Suspense>} />
+            <Route path="/" element={<SidePage />}>
+              <Route path="/diary" element={
+                <Suspense fallback={<div>Loading</div>}>
+                  <DairyPage />
+                </Suspense>} />
+              <Route path="/calculator" element={
+                <Suspense fallback={<div>Loading</div>}>
+                  <CalculatorPage />
+                </Suspense>} />
+            </Route>
           </Route>
-
           <Route path="*" element={<Navigate to="/" />} />
         </Routes>
       </Suspense>
     </>
   );
 };
+
 
