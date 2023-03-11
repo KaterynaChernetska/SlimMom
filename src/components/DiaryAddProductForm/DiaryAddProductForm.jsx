@@ -96,7 +96,6 @@ export const DiaryAddProductForm = props => {
                 ))}
             </datalist>
           </div>
-
           <div className={s.FieldWeight}>
             <input
               placeholder="  Грами"
