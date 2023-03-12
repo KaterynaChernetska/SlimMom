@@ -1,16 +1,22 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { NavLink } from 'react-router-dom';
-import { logoutUser } from 'redux/authorization/authOperations';
+import { getUserInfo, logoutUser } from 'redux/authorization/authOperations';
 import s from '../UserInfo/UserInfo.module.scss';
 import {
   selectUserName,
 } from 'redux/authorization/authSelectors';
 import Line from 'images/line.svg';
 import { deleteUserInfro } from 'redux/diary/diarySlice';
+import { useEffect } from 'react';
 
 const UserInfo = () => {
   const dispatch = useDispatch();
   const user = useSelector(selectUserName);
+
+  useEffect(() => {
+    dispatch(getUserInfo());
+  }, [dispatch]);
+
   const handleChange = () => {
     dispatch(deleteUserInfro());
     dispatch(logoutUser());
